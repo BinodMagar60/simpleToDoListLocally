@@ -120,12 +120,12 @@ const App = () => {
                   <li
                     key={task.id}
                     className="bg-gray-100 border-1 text-md border-purple-400 rounded-sm py-2 px-3 flex justify-between items-center"
+                    onClick={() => onUpdate(task.id)}
                   >
                     <div className="flex items-center gap-2">
                       <span>
                         <div
                           className="border-1 p-0.5 rounded-full border-purple-500 cursor-pointer"
-                          onClick={() => onUpdate(task.id)}
                         >
                           <div
                             className={`${
@@ -138,7 +138,6 @@ const App = () => {
                         className={`cursor-pointer select-none ${
                           task.completed ? "line-through" : ""
                         }`}
-                        onClick={() => onUpdate(task.id)}
                       >
                         {task.title}
                       </span>
@@ -148,7 +147,10 @@ const App = () => {
                         <Trash
                           size={15}
                           className="text-red-600 hover:text-red-700 hover:scale-140 active:scale-140 active:rotate-10 transition-all ease-in-out hover:rotate-10 cursor-pointer"
-                          onClick={() => onDelete(task.id)}
+                          onClick={(e: React.MouseEvent<SVGSVGElement>) => {
+                            e.stopPropagation()
+                            onDelete(task.id)
+                          }}
                         />
                       </button>
                     </div>
